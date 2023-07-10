@@ -11,7 +11,7 @@ stan::math::profile_map profiles__;
 static constexpr std::array<const char*, 23> locations_array__ = 
 {" (found before start of program)",
  " (in '/home/car_prices_pr/DA/project/stan_files/exp_model_ppc.stan', line 14, column 2 to column 18)",
- " (in '/home/car_prices_pr/DA/project/stan_files/exp_model_ppc.stan', line 15, column 2 to column 38)",
+ " (in '/home/car_prices_pr/DA/project/stan_files/exp_model_ppc.stan', line 15, column 2 to column 39)",
  " (in '/home/car_prices_pr/DA/project/stan_files/exp_model_ppc.stan', line 16, column 2 to column 41)",
  " (in '/home/car_prices_pr/DA/project/stan_files/exp_model_ppc.stan', line 17, column 2 to column 41)",
  " (in '/home/car_prices_pr/DA/project/stan_files/exp_model_ppc.stan', line 18, column 2 to column 37)",
@@ -26,7 +26,7 @@ static constexpr std::array<const char*, 23> locations_array__ =
  " (in '/home/car_prices_pr/DA/project/stan_files/exp_model_ppc.stan', line 4, column 9 to column 10)",
  " (in '/home/car_prices_pr/DA/project/stan_files/exp_model_ppc.stan', line 4, column 2 to column 28)",
  " (in '/home/car_prices_pr/DA/project/stan_files/exp_model_ppc.stan', line 5, column 2 to column 21)",
- " (in '/home/car_prices_pr/DA/project/stan_files/exp_model_ppc.stan', line 6, column 2 to column 21)",
+ " (in '/home/car_prices_pr/DA/project/stan_files/exp_model_ppc.stan', line 6, column 2 to column 22)",
  " (in '/home/car_prices_pr/DA/project/stan_files/exp_model_ppc.stan', line 7, column 2 to column 22)",
  " (in '/home/car_prices_pr/DA/project/stan_files/exp_model_ppc.stan', line 8, column 2 to column 22)",
  " (in '/home/car_prices_pr/DA/project/stan_files/exp_model_ppc.stan', line 9, column 2 to column 23)",
@@ -43,7 +43,7 @@ class exp_model_ppc_model final : public model_base_crtp<exp_model_ppc_model> {
   Eigen::Matrix<double, -1, 1> mileage__;
   Eigen::Matrix<double, -1, 1> production_year__;
   double mu_a;
-  double sc_a;
+  double sig_a;
   double mu_b1;
   double mu_b2;
   double sig_b1;
@@ -150,15 +150,15 @@ class exp_model_ppc_model final : public model_base_crtp<exp_model_ppc_model> {
       current_statement__ = 16;
       stan::math::check_greater_or_equal(function__, "mu_a", mu_a, 0);
       current_statement__ = 17;
-      context__.validate_dims("data initialization","sc_a","double",
+      context__.validate_dims("data initialization","sig_a","double",
            std::vector<size_t>{});
-      sc_a = std::numeric_limits<double>::quiet_NaN();
+      sig_a = std::numeric_limits<double>::quiet_NaN();
       
       
       current_statement__ = 17;
-      sc_a = context__.vals_r("sc_a")[(1 - 1)];
+      sig_a = context__.vals_r("sig_a")[(1 - 1)];
       current_statement__ = 17;
-      stan::math::check_greater_or_equal(function__, "sc_a", sc_a, 0);
+      stan::math::check_greater_or_equal(function__, "sig_a", sig_a, 0);
       current_statement__ = 18;
       context__.validate_dims("data initialization","mu_b1","double",
            std::vector<size_t>{});
@@ -272,7 +272,7 @@ class exp_model_ppc_model final : public model_base_crtp<exp_model_ppc_model> {
            std::numeric_limits<double>::quiet_NaN());
       double alpha = std::numeric_limits<double>::quiet_NaN();
       current_statement__ = 2;
-      alpha = stan::math::normal_rng(mu_a, sc_a, base_rng__);
+      alpha = stan::math::normal_rng(mu_a, sig_a, base_rng__);
       double beta1 = std::numeric_limits<double>::quiet_NaN();
       current_statement__ = 3;
       beta1 = stan::math::normal_rng(mu_b1, sig_b1, base_rng__);
